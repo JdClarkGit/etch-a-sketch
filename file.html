@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic HTML Template</title>
+    <style>
+      .parent-div {
+        background-color: lightblue;
+        width: 400px;
+        height: 400px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        gap: 5px;
+        padding: 10px;
+      }
+      .child-div {
+        background-color: lightgreen;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #000;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="container"></div>
+
+    <script>
+      // Create the parent div element
+      const parentDiv = document.createElement("div");
+
+      parentDiv.id = "parentDiv";
+      parentDiv.className = "parent-div";
+
+      // Append the parent div to an existing element in the DOM
+      const container = document.getElementById("container");
+      container.appendChild(parentDiv);
+
+      // Create 16 child div elements and append them to the parent div
+      for (let i = 1; i <= 16; i++) {
+        const childDiv = document.createElement("div");
+        childDiv.className = "child-div";
+        childDiv.textContent = `Child ${i}`;
+        parentDiv.appendChild(childDiv);
+      }
+    </script>
+  </body>
+</html>
