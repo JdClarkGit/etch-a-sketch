@@ -1,5 +1,13 @@
 {
-  "devDependencies": {
-    "http-server": "^14.1.1"
-  }
+  "name": "etch-a-sketch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "start-server": "http-server -p 8080"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
 }
