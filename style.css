@@ -29,6 +29,35 @@ body {
   height: 100%;
 }
 
+.screen {
+  flex-grow: 1;
+  width: 90%;
+  background-color: #d3d3d3;
+  border: 2px solid #000;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-family: "Courier New", Courier, monospace;
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(60, 10px); /* Adjust for desired cell size */
+  grid-template-rows: repeat(45, 10px); /* Adjust for desired cell size */
+  width: 100%;
+  height: 100%;
+}
+
+.grid div {
+  width: 10px; /* Adjust for desired cell size */
+  height: 10px; /* Adjust for desired cell size */
+  background-color: #d3d3d3;
+  border: 1px solid #d3d3d3; /* Match the screen color for a seamless look */
+}
+
 .knobs {
   display: flex;
   justify-content: space-between;
@@ -79,7 +108,6 @@ body {
   width: 0;
   height: 0;
   border-style: solid;
-  border-radius: 1px solid black;
 }
 
 .left-arrow {
@@ -100,17 +128,4 @@ body {
 .down-arrow {
   border-width: 15px 10px 0 10px;
   border-color: white transparent transparent transparent;
-}
-
-.screen {
-  flex-grow: 1;
-  width: 90%;
-  background-color: #d3d3d3;
-  border: 2px solid #000;
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  font-family: "Courier New", Courier, monospace;
 }
