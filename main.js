@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   const grid = document.querySelector(".grid");
   let drawing = false;
-  let intervalId;
+  let intervalIdMouseover;
+  let intervalIdMousedown;
 
   // Create grid cells
   for (let i = 0; i < 60 * 45; i++) {
@@ -33,27 +34,42 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   const stopDrawing = () => {
     drawing = false;
-    clearInterval(intervalId);
+    clearInterval(intervalIdMouseover);
+    clearInterval(intervalIdMousedown);
   };
 
-  const handleMouseMove = (e, knob) => {
-    if (drawing) {
-      if (knob === "left-knob") {
-        const dx = Math.sign(e.movementX);
-        updatePosition(dx, 0);
-      }
-      if (knob === "right-knob") {
-        const dy = Math.sign(e.movementY);
-        updatePosition(0, dy);
-      }
+  const handleMouseMove = (movement, knob) => {
+    if (knob === "left-knob") {
+      updatePosition(movement.movementX, 0);
+    }
+    if (knob === "right-knob") {
+      updatePosition(0, movement.movementY);
     }
   };
+
+  document.querySelector(".left-knob").addEventListener("mouseover", () => {
+    showGrid();
+    startDrawing();
+    intervalIdMouseover = setInterval(
+      () => handleMouseMove({ movementX: -1 }, "left-knob"),
+      100
+    );
+  });
 
   document.querySelector(".left-knob").addEventListener("mousedown", () => {
     showGrid();
     startDrawing();
-    intervalId = setInterval(
+    intervalIdMousedown = setInterval(
       () => handleMouseMove({ movementX: 1 }, "left-knob"),
+      100
+    );
+  });
+
+  document.querySelector(".right-knob").addEventListener("mouseover", () => {
+    showGrid();
+    startDrawing();
+    intervalIdMouseover = setInterval(
+      () => handleMouseMove({ movementY: -1 }, "right-knob"),
       100
     );
   });
@@ -61,7 +77,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   document.querySelector(".right-knob").addEventListener("mousedown", () => {
     showGrid();
     startDrawing();
-    intervalId = setInterval(
+    intervalIdMousedown = setInterval(
       () => handleMouseMove({ movementY: 1 }, "right-knob"),
       100
     );
@@ -69,12 +85,4 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   document.addEventListener("mouseup", stopDrawing);
   document.addEventListener("mouseleave", stopDrawing);
-
-  document.querySelector(".left-knob").addEventListener("mousemove", (e) => {
-    handleMouseMove(e, "left-knob");
-  });
-
-  document.querySelector(".right-knob").addEventListener("mousemove", (e) => {
-    handleMouseMove(e, "right-knob");
-  });
 });
