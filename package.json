@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
-    "start-server": "http-server -p 8082"
+    "start-server": "http-server -p 8083"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "react-scripts": "^5.0.1"
+  },
   "devDependencies": {
     "http-server": "^14.1.1"
   }
