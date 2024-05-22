@@ -29,11 +29,25 @@ body {
   height: 100%;
 }
 
+.clear {
+  height: 30px;
+  width: 60px;
+  border-radius: 20%;
+  cursor: pointer;
+  background: gray;
+  color: white;
+}
+
+.clear:hover {
+  background: white;
+  color: red;
+}
+
 .screen {
   flex-grow: 1;
   width: 90%;
   background-color: #d3d3d3;
-  border: 2px solid #000;
+  border: 3px solid #000;
   border-radius: 15px;
   display: flex;
   justify-content: center;

@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   const grid = document.querySelector(".grid");
+  const clear = document.querySelector(".clear");
   let drawing = false;
-  let intervalIdMouseover;
-  let intervalIdMousedown;
+  let intervalId;
 
   // Create grid cells
   for (let i = 0; i < 60 * 45; i++) {
@@ -16,6 +16,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   const cells = document.querySelectorAll(".grid div");
 
+  const clearGrid = () => {
+    cells.forEach((cell) => {
+      cell.style.backgroundColor = "#d3d3d3"; // Reset to white or initial color
+    });
+    currentX = 30; // Reset starting position
+    currentY = 22;
+  };
+
   // Update position and color the cell
   const updatePosition = (dx, dy) => {
     currentX = Math.max(0, Math.min(59, currentX + dx));
@@ -28,59 +36,44 @@ document.addEventListener("DOMContentLoaded", (event) => {
     grid.style.visibility = "visible";
   };
 
-  const startDrawing = () => {
+  const startDrawing = (dx, dy) => {
+    if (drawing) {
+      clearInterval(intervalId);
+    }
     drawing = true;
+    intervalId = setInterval(() => updatePosition(dx, dy), 100);
   };
 
   const stopDrawing = () => {
     drawing = false;
-    clearInterval(intervalIdMouseover);
-    clearInterval(intervalIdMousedown);
+    clearInterval(intervalId);
   };
 
-  const handleMouseMove = (movement, knob) => {
-    if (knob === "left-knob") {
-      updatePosition(movement.movementX, 0);
-    }
-    if (knob === "right-knob") {
-      updatePosition(0, movement.movementY);
-    }
-  };
+  // Clear button event listener
+  clear.addEventListener("click", () => {
+    drawing = false;
+    clearInterval(intervalId);
+    clearGrid(); // Reset the grid to initial state
+  });
 
   document.querySelector(".left-knob").addEventListener("mouseover", () => {
     showGrid();
-    startDrawing();
-    intervalIdMouseover = setInterval(
-      () => handleMouseMove({ movementX: -1 }, "left-knob"),
-      100
-    );
+    startDrawing(-1, 0);
   });
 
   document.querySelector(".left-knob").addEventListener("mousedown", () => {
     showGrid();
-    startDrawing();
-    intervalIdMousedown = setInterval(
-      () => handleMouseMove({ movementX: 1 }, "left-knob"),
-      100
-    );
+    startDrawing(1, 0);
   });
 
   document.querySelector(".right-knob").addEventListener("mouseover", () => {
     showGrid();
-    startDrawing();
-    intervalIdMouseover = setInterval(
-      () => handleMouseMove({ movementY: -1 }, "right-knob"),
-      100
-    );
+    startDrawing(0, -1);
   });
 
   document.querySelector(".right-knob").addEventListener("mousedown", () => {
     showGrid();
-    startDrawing();
-    intervalIdMousedown = setInterval(
-      () => handleMouseMove({ movementY: 1 }, "right-knob"),
-      100
-    );
+    startDrawing(0, 1);
   });
 
   document.addEventListener("mouseup", stopDrawing);
