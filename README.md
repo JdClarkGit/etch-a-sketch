@@ -6,3 +6,5 @@ the utilization of event listeners and JS DOM manipulation.
 
 
 CodePen: https://codepen.io/Bowtied-UberMensch/pen/dyEMogO?editors=1100
+
+Note: hover over the knobs in order to go in the inital direction, and click down to go in the opposite direction. Clear button restsrts it.
